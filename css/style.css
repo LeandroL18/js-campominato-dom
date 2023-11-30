@@ -47,7 +47,7 @@
     background-color: rgb(0, 255, 191);
     width: 100%;
     height: 88vh;
-    padding: 30px 180px;
+    padding: 60px 160px;
 }
 .grid{
     height: 100%;
@@ -72,4 +72,8 @@
 
 #row_footer{
     padding: 15px;
+}
+
+.square-boom{
+    background-color: red;
 }

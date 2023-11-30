@@ -13,6 +13,12 @@ const grid = createMyElement("div","grid");
 // selezione bottoni
 const buttonPlay = document.getElementById("play");
 
+// generazione array di 16 numeri casuali per le bombe
+const bombe = genArrayRandom(1, 100, 16);
+console.log(bombe);
+
+// definizione variabili
+let score = 0;
 
 // far apparire la griglia al click del bottone
 buttonPlay.addEventListener("click",
@@ -25,14 +31,24 @@ buttonPlay.addEventListener("click",
 // creazione celle
 for(let i = 1; i <= 100; i++){
     const newElement = createMyElement("div","square");
+    // inserimento numeri all'interno della cella
     grid.append(newElement);
     newElement.append(i);
 
     // colorare la cella al suo click
     newElement.addEventListener("click",
     function(){
-        newElement.classList.add("clicked");
         console.log("Cella " + i);
+        if(bombe.includes(i)){
+            this.classList.add("square-boom");
+            console.log("Hai perso!");
+            console.log("Hai totalizzato " + score + " punti!");
+        }
+        else{
+            this.classList.add("clicked");
+            score++;
+            console.log("Punteggio: " + score);
+        }
         }
     )
 }
@@ -43,4 +59,19 @@ function createMyElement(tagtype, classname){
     const currentElement = document.createElement(tagtype);
     currentElement.classList.add(classname);
     return currentElement;
+}
+
+// funzione creazione array randomico per bombe
+function genArrayRandom(min,max,nElement) {
+    const arr = [];
+
+    while(arr.length < nElement){
+        // generiamo numero random
+        let number = Math.floor(Math.random()* max) + min;
+        // controllo se il numero generato non è già nell'array
+        if(!arr.includes(number)){
+            arr.push(number);
+        }
+    }
+    return arr;
 }
